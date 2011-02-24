@@ -4229,7 +4229,18 @@ int key;
 	  fore->w_group = 0;
 	  if (args[0][0])
 	    {
-	      fore->w_group = WindowByName(*args);
+	      struct win *found = WindowByName(*args);
+	      if (!found || found->w_type != W_TYPE_GROUP)
+		{
+		  OutputMsg(0, "\"%s\" group not fond", *args);
+		  break;
+		}
+	      if (found == fore)
+		{
+		  OutputMsg(0, "oops");
+		  break;
+		}
+	      fore->w_group = found;
 	      if (fore->w_group == fore || (fore->w_group && fore->w_group->w_type != W_TYPE_GROUP))
 		fore->w_group = 0;
 	    }
