@@ -381,6 +381,8 @@ gl_Window_input(struct ListData *ldata, char **inp, int *len)
       break;
 
     case ',':	/* Switch numbers with the previous window. */
+      if (!win)
+	break;
       if (wdata->order == WLIST_NUM && ldata->selected->prev)
 	{
 	  struct win *pw = ldata->selected->prev->data;
@@ -396,6 +398,8 @@ gl_Window_input(struct ListData *ldata, char **inp, int *len)
       break;
 
     case '.':	/* Switch numbers with the next window. */
+      if (!win)
+	break;
       if (wdata->order == WLIST_NUM && ldata->selected->next)
 	{
 	  struct win *nw = ldata->selected->next->data;
@@ -408,6 +412,8 @@ gl_Window_input(struct ListData *ldata, char **inp, int *len)
       break;
 
     case 'K':	/* Kill a window */
+      if (!win)
+	break;
       {
 	char str[MAXSTR];
 	snprintf(str, sizeof(str) - 1, "Really kill window %d (%s) [y/n]",
