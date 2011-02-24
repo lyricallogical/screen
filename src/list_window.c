@@ -445,7 +445,7 @@ gl_Window_input(struct ListData *ldata, char **inp, int *len)
 		    {
 		      /* We need to list all the rows, since we are scrolling down. But first,
 		       * find the top of the visible list. */
-		      ldata->top = row;
+		      glist_decide_top(ldata);
 		      glist_display_all(ldata);
 		    }
 		  else
