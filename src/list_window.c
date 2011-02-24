@@ -286,19 +286,15 @@ gl_Window_row(struct ListData *ldata, struct ListRow *lrow)
 static int
 gl_Window_input(struct ListData *ldata, char **inp, int *len)
 {
-  struct win *win;
+  struct win *win = ldata->selected ? ldata->selected->data : 0;
   unsigned char ch;
   struct display *cd = display;
   struct gl_Window_Data *wdata = ldata->data;
-
-  if (!ldata->selected)
-    return 0;
 
   ch = (unsigned char) **inp;
   ++*inp;
   --*len;
 
-  win = ldata->selected->data;
   switch (ch)
     {
     case ' ':
