@@ -63,6 +63,8 @@ void glist_remove_rows __P((struct ListData *ldata));
 
 void glist_display_all __P((struct ListData *list));
 
+void glist_decide_top __P((struct ListData *list));
+
 struct ListData * glist_display __P((struct GenericList *list, const char *name));
 
 void glist_abort __P((void));
