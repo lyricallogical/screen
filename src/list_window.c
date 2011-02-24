@@ -166,6 +166,8 @@ gl_Window_rebuild(struct ListData *ldata)
     if (w->w_type == W_TYPE_GROUP && wdata->nested)
       row = gl_Window_add_group(ldata, row);
   );
+
+  glist_decide_top(ldata);
   glist_display_all(ldata);
 }
 

@@ -140,6 +140,7 @@ gl_Display_rebuild(struct ListData *ldata)
 	ldata->selected = row;
     }
 
+  glist_decide_top(ldata);
   glist_display_all(ldata);
 }
 
