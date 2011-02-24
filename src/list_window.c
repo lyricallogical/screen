@@ -411,17 +411,22 @@ gl_Window_input(struct ListData *ldata, char **inp, int *len)
       {
 	char str[MAXSTR];
 	struct win *target = 0;
-	if (win) {
-	  target = win;
-	  snprintf(str, sizeof(str) - 1, "Really kill window %d (%s) [y/n]",
-	    target->w_number, target->w_title);
-	} else if (wdata->group) {
-	  target = wdata->group;
-	  snprintf(str, sizeof(str) - 1, "Really kill this group (%s) [y/n]",
-	    target->w_title);
-	} else {
-	  break;
-	}
+	if (win)
+	  {
+	    target = win;
+	    snprintf(str, sizeof(str) - 1, "Really kill window %d (%s) [y/n]",
+	      target->w_number, target->w_title);
+	  }
+	else if (wdata->group)
+	  {
+	    target = wdata->group;
+	    snprintf(str, sizeof(str) - 1, "Really kill this group (%s) [y/n]",
+	      target->w_title);
+	  }
+	else
+	  {
+	    break;
+	  }
 	Input(str, 1, INP_RAW, window_kill_confirm, (char *)target, 0);
       }
       break;
