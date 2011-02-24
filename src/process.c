@@ -170,7 +170,7 @@ static void ResizeFin __P((char *, int, char *));
 static struct action *FindKtab __P((char *, int));
 static void SelectFin __P((char *, int, char *));
 static void SelectLayoutFin __P((char *, int, char *));
-
+static int IsInGroupRecursive __P((struct win *, struct win *));
 
 extern struct layer *flayer;
 extern struct display *display, *displays;
@@ -4235,7 +4235,7 @@ int key;
 		  OutputMsg(0, "\"%s\" group not fond", *args);
 		  break;
 		}
-	      if (found == fore)
+	      if (found == fore || IsInGroupRecursive(fore, found))
 		{
 		  OutputMsg(0, "oops");
 		  break;
@@ -6936,6 +6936,30 @@ char *data;
   inp_setprompt(resizeprompts[flags], NULL);
   *(int *)data = flags;
   buf[len] = '\034';
+}
+
+static int
+IsInGroupRecursive(group, win)
+struct win *group;
+struct win *win;
+{
+  struct win *w;
+
+  if (!group || group->w_type != W_TYPE_GROUP)
+    return 0;
+
+  if (!win)
+    return 0;
+
+  if (win->w_group == group)
+    return 1;
+
+  for (w = windows; w; w = w->w_next)
+    if (w->w_group == group && w->w_type == W_TYPE_GROUP)
+      if (IsInGroupRecursive(w, win))
+	return 1;
+
+  return 0;
 }
 
 void
