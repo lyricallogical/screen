@@ -2389,7 +2389,10 @@ int key;
 	  if (enc == (*s == '.' ? user->u_plop.enc : plop_tab[(int)(unsigned char)*s].enc))
 # endif
             {
-	      MakePaster(&fore->w_paster, *s == '.' ? user->u_plop.buf : plop_tab[(int)(unsigned char)*s].buf, l, 0);
+              if (queryflag >= 0)
+                OutputMsg(0, "%s", *s == '.' ? user->u_plop.buf : plop_tab[(int)(unsigned char)*s].buf);
+              else
+                MakePaster(&fore->w_paster, *s == '.' ? user->u_plop.buf : plop_tab[(int)(unsigned char)*s].buf, l, 0);
 	      break;
             }
 	/*
@@ -2423,7 +2426,10 @@ int key;
 	 */
 	if (args[1] == 0)
 	  {
-	    MakePaster(&fore->w_paster, dbuf, l, 1);
+            if (queryflag >= 0)
+              OutputMsg(0, "%s", dbuf);
+            else
+              MakePaster(&fore->w_paster, dbuf, l, 1);
 	  }
 	else
 	  {

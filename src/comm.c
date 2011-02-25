@@ -257,7 +257,7 @@ struct comm comms[RC_LAST + 1] =
   { "password",		ARGS_01 },
 #endif
 #ifdef COPY_PASTE
-  { "paste",		NEED_LAYER|ARGS_012 },
+  { "paste",		CAN_QUERY|NEED_LAYER|ARGS_012 },
   { "pastefont",	ARGS_01 },
 #endif
   { "pow_break",	NEED_FORE|ARGS_01 },
