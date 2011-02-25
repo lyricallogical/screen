@@ -133,6 +133,7 @@ static void LogToggle __P((int));
 static void ShowInfo __P((void));
 static void ShowDInfo __P((void));
 static struct win *WindowByName __P((char *));
+static struct win *GroupByName __P((char *));
 static int  WindowByNumber __P((char *));
 static int  ParseOnOff __P((struct action *, int *));
 static int  ParseWinNum __P((struct action *, int *));
@@ -4229,8 +4230,8 @@ int key;
 	  fore->w_group = 0;
 	  if (args[0][0])
 	    {
-	      struct win *found = WindowByName(*args);
-	      if (!found || found->w_type != W_TYPE_GROUP)
+	      struct win *found = GroupByName(*args);
+	      if (!found)
 		{
 		  OutputMsg(0, "\"%s\" group not fond", *args);
 		  break;
@@ -4956,6 +4957,23 @@ char *s;
   for (p = windows; p; p = p->w_next)
     if (!strncmp(p->w_title, s, strlen(s)))
       return p;
+  return 0;
+}
+
+static struct win*
+GroupByName(s)
+char *s;
+{
+  struct win* p;
+
+  for (p = windows; p; p = p->w_next)
+    if (p->w_type == W_TYPE_GROUP)
+      if (!strcmp(p->w_title, s))
+	return p;
+  for (p = windows; p; p = p->w_next)
+    if (p->w_type == W_TYPE_GROUP)
+      if (!strncmp(p->w_title, s, strlen(s)))
+	return p;
   return 0;
 }
 
